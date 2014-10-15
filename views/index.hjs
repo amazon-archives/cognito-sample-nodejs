@@ -1,0 +1,124 @@
+<!--
+Copyright 2014 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
+
+    http://aws.amazon.com/apache2.0/
+
+or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap-theme.min.css">
+  </head>
+  <body>
+    <!-- Navigation bar at the top of the page -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/"><img src="/images/cognitoicon.png" width="25px"/>   {{title}}</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- First section used to authentify the user -->
+    <div class="page-header">
+      <h4>Authentication</h4>
+    </div>
+    <p>Please login with your Amazon account to play.</p>
+    <div class="row">
+      <div class="col-sm-4">
+      	{{^displayButtons}}
+        <div>
+          <a class="btn" href="/auth/amazon">
+          <span class="fa-stack">
+            <i class="fa fa-circle-thin fa-stack-2x"></i>
+            <i class="fa fa-cloud fa-stack-1x"></i>
+          </span>
+          Login with Amazon</a>
+        </div>
+        {{/displayButtons}}
+        {{#displayButtons}}
+        <div>
+          <a class="btn" href="/logout">
+          <span class="fa-stack fa">
+            <i class="fa fa-circle-thin fa-stack-2x"></i>
+            <i class="fa fa-cloud fa-stack-1x"></i>
+          </span>
+          Logout</a>
+        </div>
+        {{/displayButtons}}
+      </div>
+      <div class="col-sm-4">
+        <p>Logged in as: {{amazonName}}</p>
+        <p>Email is: {{amazonEmail}}</p>
+        <p>CognitoId is: {{cognitoId}}</p>
+      </div>
+    </div>
+
+    <!-- Second section used to play the game and synchronize data -->
+    {{#displayButtons}}
+    <div class="page-header">
+      <h4>Play !</h4>
+    </div>
+    <p>Click on the buttons to gain or lose life points. You can also resynchronize the data if needed.</p>
+
+    <div class="row vertical-align">
+      <div class="col-md-3">
+        <div class="col-sm-4">
+          <a href="/modifyLife?points=+25" id="addpoint">
+            <i class="fa fa-heart fa-4x"></i>
+          </a>
+        </div>
+        <div class="col-sm-4">
+            <a href="/modifyLife?points=-25" id="substractpoint">
+              <i class="fa fa-bomb fa-4x"></i>
+            </a>
+        </div>
+        <div class="col-sm-4">
+            <a href="/showData" id="refresh">
+              <i class="fa fa-refresh fa-4x"></i>
+            </a>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div style="width:200px;">
+          <div id="gauge" ></div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <p>DataRecords JSON: {{records}}</p>
+      </div>
+    </div>
+
+
+    <!-- Latest compiled and minified JavaScript. Bootstrap/JQuery/justgage -->
+    <script src="/js/justgage/justgage.1.0.1.min.js"></script>
+    <script src="/js/raphael/raphael.2.1.0.min.js"></script>
+    <!-- Graphical parameters for the gauge -->
+    <script>
+      var g = new JustGage({
+        id: "gauge", 
+        value: {{gaugeValue}}, 
+        min: 0,
+        max: 100,
+        showMinMax: true,
+        levelColors: ["FF0000","00FF00"],
+        titleFontColor: "#000000",
+        levelColorsGradient: true,
+        title: "Life gauge"
+      }); 
+    </script>
+    {{/displayButtons}}
+    <script src="/js/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.3.2.0.min.js"></script>
+    
+  </body>
+</html>

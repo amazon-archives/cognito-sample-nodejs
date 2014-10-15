@@ -18,7 +18,7 @@ Log in to the [Elastic Beanstalk console](https://console.aws.amazon.com/elastic
 
 2.    Select "Launch a new environment running this application", for the environment tier select "Web Server", for the configuration select "Node.js", for the environment type select "LoadBalancing, autoscaling"
 
-3.    On the next screen for the application version select "Upload your own". You should package the source code as a .zip file, then upload it. You can do it yourself or click on "Download as zip" in the github web interface.
+3.    On the next screen for the application version select "Upload your own". Clone the github repository, once you are at the root of the repository package the source code as a .zip file. It is important that the .zip archive contains files like "server.js" at its root level, otherwise the deployment will fail.
 
 4.    Choose an environment name, an evironment URL and a description
 

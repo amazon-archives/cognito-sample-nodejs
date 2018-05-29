@@ -96,6 +96,8 @@ app.get('/auth/amazon',
         scope: ['profile']
     }),
     function(req, res) {
+        console.log(req);
+        console.log(res);     
         // The request will be redirected to Amazon for authentication, so this
         // function will not be called.
 });
@@ -113,9 +115,10 @@ app.get('/auth/amazon/callback', passport.authenticate('amazon', {
 //GET ShowData page
 //This page initialize the CognitoId and the Cognito client, then list the data contained in the Cognito dataset
 app.get('/showData', ensureAuthenticated, function(req, res) {
+    console.log("User info:" + req.user.token);
     var params = {
         AccountId: AWS_ACCOUNT_ID, 
-        RoleArn: IAM_ROLE_ARN, 
+        // RoleArn: IAM_ROLE_ARN, 
         IdentityPoolId: COGNITO_IDENTITY_POOL_ID, 
         Logins: {
             'www.amazon.com': req.user.token
